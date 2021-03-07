@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>学生信息管理系统</title>
+    <!-- 引入外部的样式文件 -->
+    <link rel="stylesheet" href="./css/index.css">
+    <!-- 引入Element UI样式 -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <!-- 使用CDN引入Vue模块 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+    <!-- 引入Element 组件库 -->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+
+
+</head>
+
+<body>
+    <div id='app'>
+        <el-container>
+            <el-header style="height: 80px;">学生信息管理系统</el-header>
+            <el-container>
+                <el-aside width="200px">
+                    <el-menu default-active="1" class="el-menu-vertical-demo">
+                        <el-menu-item index="1">
+                            <i class="el-icon-menu"></i>
+                            <span slot="title">班级管理</span>
+                        </el-menu-item>
+                        <el-menu-item index="2">
+                            <i class="el-icon-user"></i>
+                            <span slot="title">学生信息</span>
+                        </el-menu-item>
+                        <el-menu-item index="3">
+                            <i class="el-icon-s-custom"></i>
+                            <span slot="title">讲师信息</span>
+                        </el-menu-item>
+                        <el-menu-item index="4">
+                            <i class="el-icon-document"></i>
+                            <span slot="title">课程管理</span>
+                        </el-menu-item>
+                    </el-menu>
+                </el-aside>
+                <el-container>
+                    <el-main>Main</el-main>
+                    <el-footer style="height: 30px;">学生信息管理系统 版权所有： Chong Song | 2021-2-28</el-footer>
+                </el-container>
+            </el-container>
+        </el-container>
+    </div>
+</body>
+
+</html>
+<script src="./js/index.js"></script>
