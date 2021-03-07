@@ -53,7 +53,7 @@
                         </el-breadcrumb>
                         <!-- 表单 -->
                         <el-form :inline="true" style="margin-top: 30px;">
-                            <el-row :gutter="20"> 
+                            <el-row :gutter="20">
                                 <el-col :span="12" style="text-align: left;">
                                     <el-form-item label="请输入查询条件：">
                                         <el-input placeholder="请输入查询条件" style="width: 420px;"></el-input>
@@ -61,24 +61,55 @@
                                 </el-col>
                                 <el-col :span="8" style="text-align: right;">
                                     <el-button-group>
-                                        <el-button type="primary" icon="el-icon-search" >查询</el-button>
+                                        <el-button type="primary" icon="el-icon-search">查询</el-button>
                                         <el-button type="primary" icon="el-icon-document">显示全部</el-button>
                                         <el-button type="primary" icon="el-icon-circle-plus-outline">添加</el-button>
                                     </el-button-group>
                                 </el-col>
                                 <el-col :span="2">
                                     <el-upload>
-                                        <el-button type="primary" >导入Execl</el-button>
+                                        <el-button type="primary">导入Execl</el-button>
                                     </el-upload>
                                 </el-col>
                                 <el-col :span="2">
                                     <el-button type="primary">导出Execl</el-button>
                                 </el-col>
                             </el-row>
-
-
-
                         </el-form>
+                        <!-- 表格 -->
+                        <el-table :data="students" border style="width: 100%;" size='mini'>
+                            <el-table-column type="selection" align="center" width="60">
+                            </el-table-column>
+                            <el-table-column prop="sno" align="center" label="学号" width="100">
+                            </el-table-column>
+                            <el-table-column prop="name" align="center" label="姓名" width="100">
+                            </el-table-column>
+                            <el-table-column prop="gender" align="center" label="性别" width="50">
+                            </el-table-column>
+                            <el-table-column prop="birthday" align="center" label="生日" width="180">
+                            </el-table-column>
+                            <el-table-column prop="email" align="center" label="邮箱" width="180">
+                            </el-table-column>
+                            <el-table-column prop="address" align="center" label="地址">
+                            </el-table-column>
+                            <el-table-column label="操作" align="center" width="180" size='mini'>
+                                <el-button type="success" icon="el-icon-check" circle size='mini'></el-button>
+                                <el-button type="primary" icon="el-icon-edit" circle size='mini'></el-button>
+                                <el-button type="danger" icon="el-icon-delete" circle size='mini'> </el-button>
+                            </el-table-column>
+                        </el-table>
+                        <!-- 分页 -->
+                        <el-row style="margin-top: 20px; text-align: right;">
+                            <el-col :span="8" style="text-align: left;">
+                                <el-button type="primary" size="mini">批量删除</el-button>
+                            </el-col>
+                            <el-col :span="16">
+                                <el-pagination
+                                    :current-page="currentpage" :page-sizes="[5, 10, 50, 100]" :page-size="pagesize"
+                                    layout="total, sizes, prev, pager, next, jumper" :total="total">
+                                </el-pagination>
+                            </el-col>
+                        </el-row>
                     </el-main>
                     <el-footer style="height: 30px;">学生信息管理系统 版权所有： Chong Song | 2021-2-28</el-footer>
                 </el-container>
