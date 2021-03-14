@@ -4,13 +4,26 @@ const app = new Vue({
         msg: 'Hello Vue!',
         students: [],  // 所有学生信息
         pageStudents: [], //页学生数据
-        baseUrl: 'http://192.168.3.102:8000/',
+        baseUrl: 'http://192.168.31.113:8000/',
         inputStr: '', //查询条件
-        dialogVisible: false, // dialog弹出框
         // ======= 分页相关的变量 =======
         total: 0,    // 数据总行数
         currentpage:1, // 当前所在页
         pagesize:10,   // 每页显示行数
+        // ======= 弹出窗相关的变量 ======
+        dialogVisible: false, // 是否弹出dialog弹出框
+        isView: false, // 是否查看学生信息
+        isEdit: false, // 是否修改学生信息
+        studentForm: {
+            sno: '',
+            name: '',
+            gender: '',
+            birthday: '',
+            mobile: '',
+            email: '',
+            address: '',
+            image: '',
+        },
     },
     mounted() {
         // 自动加载数据
@@ -98,6 +111,34 @@ const app = new Vue({
         // 添加学生信息
         addStudent() {
             this.dialogVisible = true;
+        },
+        // 查看学生信息
+        viewStudent(row) {
+            // 深拷贝
+            this.studentForm = JSON.parse(JSON.stringify(row));
+            this.isView = true;
+            this.dialogVisible = true;
+
+        },
+        // 修改学生信息
+        updateStudent(row) {
+            // 深拷贝
+            this.studentForm = JSON.parse(JSON.stringify(row));
+            this.isEdit = true;
+            this.dialogVisible = true;
+        },
+        // 关闭弹出框时清除内容
+        closeDialogForm() {
+            this.studentForm.sno = "";
+            this.studentForm.name = "";
+            this.studentForm.gender = "";
+            this.studentForm.mobile = "";
+            this.studentForm.birthday = "";
+            this.studentForm.email = "";
+            this.studentForm.address = "";
+            // 清除弹出框状态
+            this.isEdit = false;
+            this.isView = false;
         },
         // 分页时修改每页的行数
         handleSizeChange(size) {
