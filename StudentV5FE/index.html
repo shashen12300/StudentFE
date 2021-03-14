@@ -14,6 +14,9 @@
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
     <!-- 引入Element 组件库 -->
     <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <!-- 引入Axios 组件库-->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
 
 
 </head>
@@ -53,31 +56,35 @@
                         </el-breadcrumb>
                         <!-- 表单 -->
                         <el-form :inline="true" style="margin-top: 30px;">
-                            <el-row :gutter="20">
-                                <el-col :span="12" style="text-align: left;">
+                            <el-row :gutter="10">
+                                <el-col :span="10" style="text-align: left;">
                                     <el-form-item label="请输入查询条件：">
-                                        <el-input placeholder="请输入查询条件" style="width: 420px;"></el-input>
+                                        <el-input v-model="inputStr" placeholder="请输入查询条件" style="width: 350px;">
+                                        </el-input>
                                     </el-form-item>
                                 </el-col>
                                 <el-col :span="8" style="text-align: right;">
                                     <el-button-group>
-                                        <el-button type="primary" icon="el-icon-search">查询</el-button>
-                                        <el-button type="primary" icon="el-icon-document">显示全部</el-button>
-                                        <el-button type="primary" icon="el-icon-circle-plus-outline">添加</el-button>
+                                        <el-button type="primary" icon="el-icon-search" @click="queryStudents">查询
+                                        </el-button>
+                                        <el-button type="primary" icon="el-icon-document" @click="getAllStudents">显示全部
+                                        </el-button>
+                                        <el-button type="primary" icon="el-icon-circle-plus-outline"
+                                            @click="addStudent">添加</el-button>
                                     </el-button-group>
                                 </el-col>
-                                <el-col :span="2">
+                                <el-col :span="3" style="text-align: right;">
                                     <el-upload>
                                         <el-button type="primary">导入Execl</el-button>
                                     </el-upload>
                                 </el-col>
-                                <el-col :span="2">
+                                <el-col :span="3" style="text-align: left;">
                                     <el-button type="primary">导出Execl</el-button>
                                 </el-col>
                             </el-row>
                         </el-form>
                         <!-- 表格 -->
-                        <el-table :data="students" border style="width: 100%;" size='mini'>
+                        <el-table :data="pageStudents" border style="width: 100%;" size='mini'>
                             <el-table-column type="selection" align="center" width="60">
                             </el-table-column>
                             <el-table-column prop="sno" align="center" label="学号" width="100">
@@ -104,12 +111,47 @@
                                 <el-button type="primary" size="mini">批量删除</el-button>
                             </el-col>
                             <el-col :span="16">
-                                <el-pagination
+                                <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange"
                                     :current-page="currentpage" :page-sizes="[5, 10, 50, 100]" :page-size="pagesize"
                                     layout="total, sizes, prev, pager, next, jumper" :total="total">
                                 </el-pagination>
                             </el-col>
                         </el-row>
+                        <!-- dialog对话框 -->
+                        <el-dialog title="学生信息" :visible.sync="dialogVisible">
+                            <el-form :inline="true" size="mini" style="text-align: left;">
+                                <el-form-item label="学号：">
+                                    <el-input></el-input>
+                                </el-form-item>
+                                <el-form-item label="姓名：">
+                                    <el-input></el-input>
+                                </el-form-item>
+                                <el-form-item label="性别：">
+                                    <el-select placeholder="请选择性别">
+                                        <el-option label="男" value="男"></el-option>
+                                        <el-option label="女" value="女"></el-option>
+                                    </el-select>
+                                </el-form-item>
+                                <el-form-item label="出生日期">
+                                    <el-date-picker type="date" placeholder="选择日期" style="width: 100%;">
+                                    </el-date-picker>
+                                </el-form-item>
+                                <el-form-item label="手机号码">
+                                    <el-input></el-input>
+                                </el-form-item>
+                                <el-form-item label="邮箱地址">
+                                    <el-input></el-input>
+                                </el-form-item>
+                                <el-form-item label="家庭地址">
+                                    <el-input></el-input>
+                                </el-form-item>
+                            </el-form>
+
+                            <div slot="footer" class="dialog-footer" size="mini">
+                                <el-button @click="dialogVisible = false">取 消</el-button>
+                                <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+                            </div>
+                        </el-dialog>
                     </el-main>
                     <el-footer style="height: 30px;">学生信息管理系统 版权所有： Chong Song | 2021-2-28</el-footer>
                 </el-container>
