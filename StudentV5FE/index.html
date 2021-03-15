@@ -106,7 +106,7 @@
                                     <el-button type="success" icon="el-icon-more" circle size='mini'
                                         @click="viewStudent(scope.row)"></el-button>
                                     <el-button type="primary" icon="el-icon-edit" circle size='mini' @click="updateStudent(scope.row)"></el-button>
-                                    <el-button type="danger" icon="el-icon-delete" circle size='mini'> </el-button>
+                                    <el-button type="danger" icon="el-icon-delete" circle size='mini' @click="deleteStudent(scope.row)"> </el-button>
                                 </template>
                             </el-table-column>
                         </el-table>
@@ -123,21 +123,21 @@
                             </el-col>
                         </el-row>
                         <!-- dialog对话框 -->
-                        <el-dialog title="学生信息" :visible.sync="dialogVisible" width="50%" :close-on-click-modal="false" @close="closeDialogForm">
-                            <el-form :inline="true" size="mini" label-width='130px' label-position='right'>
+                        <el-dialog title="学生信息" :visible.sync="dialogVisible" width="50%" :close-on-click-modal="true" @close="closeDialogForm('studentForm')">
+                            <el-form :model="studentForm" :rules="rules" ref="studentForm" :inline="true" size="mini" label-width='130px' label-position='right'>
                                 <el-row :gutter="20" style="text-align: left;">
                                     <el-col :span="12">
-                                        <el-form-item label="学号：">
+                                        <el-form-item label="学号：" prop="sno">
                                             <el-input v-model="studentForm.sno" :disabled="isView||isEdit" suffix-icon="el-icon-edit"></el-input>
                                         </el-form-item>
                                     </el-col>
                                     <el-col :span="12">
-                                        <el-form-item label="姓名：">
+                                        <el-form-item label="姓名：" prop="name">
                                             <el-input v-model="studentForm.name" :disabled="isView" suffix-icon="el-icon-edit"></el-input>
                                         </el-form-item>
                                     </el-col>
                                     <el-col :span="12">
-                                        <el-form-item label="性别：">
+                                        <el-form-item label="性别：" prop="gender">
                                             <el-select placeholder="请选择性别" v-model="studentForm.gender" :disabled="isView">
                                                 <el-option label="男" value="男"></el-option>
                                                 <el-option label="女" value="女"></el-option>
@@ -145,31 +145,31 @@
                                         </el-form-item>
                                     </el-col>
                                     <el-col :span="12">
-                                        <el-form-item label="出生日期：" >
-                                            <el-date-picker v-model="studentForm.birthday" :disabled="isView" type="date" placeholder="选择日期" style="width: 93%;">
+                                        <el-form-item label="出生日期：" prop="birthday">
+                                            <el-date-picker v-model="studentForm.birthday" value-format="yyyy-MM-dd" :disabled="isView" type="date" placeholder="选择日期" style="width: 93%;">
                                             </el-date-picker>
                                         </el-form-item>
                                     </el-col>
                                     <el-col :span="12">
-                                        <el-form-item label="手机号码：" >
+                                        <el-form-item label="手机号码：" prop="mobile">
                                             <el-input v-model="studentForm.mobile" :disabled="isView" suffix-icon="el-icon-edit"></el-input>
                                         </el-form-item>
                                     </el-col>
                                     <el-col :span="12">
-                                        <el-form-item label="邮箱地址：" >
+                                        <el-form-item label="邮箱地址：" prop="email">
                                             <el-input v-model="studentForm.email" :disabled="isView" suffix-icon="el-icon-edit"></el-input>
                                         </el-form-item>
                                     </el-col>
                                     <el-col :span="24">
-                                        <el-form-item label="家庭地址：" >
-                                            <el-input v-model="studentForm.address" :disabled="isView" suffix-icon="el-icon-edit" style="width: 326%;"></el-input>
+                                        <el-form-item label="家庭地址：" prop="address">
+                                            <el-input v-model="studentForm.address" :disabled="isView" suffix-icon="el-icon-edit" style="width: 302%;"></el-input>
                                         </el-form-item>
                                     </el-col>
                                 </el-row>
                             </el-form>
 
                             <div slot="footer" class="dialog-footer">
-                                <el-button type="primary" @click="dialogVisible = false" size="mini" v-show="!isView">确 定</el-button>
+                                <el-button type="primary" size="mini" v-show="!isView" @click="submitStudentForm('studentForm')">确 定</el-button>
                                 <el-button @click="dialogVisible = false" size="mini">取 消</el-button>
 
                             </div>
